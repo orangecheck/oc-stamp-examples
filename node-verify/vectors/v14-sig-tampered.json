@@ -1,0 +1,51 @@
+{
+    "description": "v12 with one signature byte flipped; MUST NOT verify (E_BAD_SIG)",
+    "inputs": {
+        "address": "bc1q0xcqpzrky6eff2g52qdye53xkk9jxkvrh6yhyw",
+        "content_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "content_length": 42,
+        "content_mime": "text/plain",
+        "signed_at": "2026-04-24T18:30:00Z",
+        "content_ref": null,
+        "stake": null,
+        "ots": null,
+        "expected_sig_value": "AkcwRAIgfnLwtvqvs2J4Le/mmklLS61mqIeNuk+yGAWRpaAE828CIAiyMxEmplU/k8df/ugQLHDpGJN43MqX5tYK+gBxFq6AASEDG4TFVnsSZECZXT7VqroFZdceGDRgSBn/nBf16dXdB48="
+    },
+    "expected": {
+        "canonical_message": "oc-stamp:v1\naddress: bc1q0xcqpzrky6eff2g52qdye53xkk9jxkvrh6yhyw\ncontent_hash: sha256:1111111111111111111111111111111111111111111111111111111111111111\ncontent_length: 42\ncontent_mime: text/plain\nsigned_at: 2026-04-24T18:30:00Z",
+        "canonical_message_bytes_len": 225,
+        "id": "e1ca58382537aaa89d9b1603fd3840ba5b9869448e3c215220f38751d8429b36",
+        "envelope": {
+            "v": 1,
+            "kind": "stamp",
+            "id": "e1ca58382537aaa89d9b1603fd3840ba5b9869448e3c215220f38751d8429b36",
+            "content": {
+                "hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+                "length": 42,
+                "mime": "text/plain",
+                "ref": null
+            },
+            "signer": {
+                "address": "bc1q0xcqpzrky6eff2g52qdye53xkk9jxkvrh6yhyw",
+                "alg": "bip322"
+            },
+            "signed_at": "2026-04-24T18:30:00Z",
+            "stake": null,
+            "ots": null,
+            "sig": {
+                "alg": "bip322",
+                "pubkey": "bc1q0xcqpzrky6eff2g52qdye53xkk9jxkvrh6yhyw",
+                "value": "AkcwRAIgfnLwtvqvs2J4Le/mmklLS61mqIeNuk+yGAWRpaAE828CIAiyMxEmplU/k8df/ugQLHDpGJN43MqX5tYK+gBxFq6AASEDG4TFVnsSZECZXT7VqroFZdceGDRgSBn/nBf16dXdB48="
+            }
+        }
+    },
+    "signature_check": {
+        "address_type": "p2wpkh",
+        "format": "bip322-simple",
+        "signed_message": "e1ca58382537aaa89d9b1603fd3840ba5b9869448e3c215220f38751d8429b36",
+        "expected": {
+            "outcome": "REJECT",
+            "error_code": "E_BAD_SIG"
+        }
+    }
+}

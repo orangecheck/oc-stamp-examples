@@ -1,0 +1,50 @@
+{
+    "description": "P2TR key path, BIP-322 simple signature over the hex id, from a disclosed burn key; MUST verify",
+    "inputs": {
+        "address": "bc1p5e6v9v2j5wp3y6c79gaqdqltq7jdv45fswnnm7exmmp2020mqepsmcx06p",
+        "content_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "content_length": 42,
+        "content_mime": "text/plain",
+        "signed_at": "2026-04-24T18:30:00Z",
+        "content_ref": null,
+        "stake": null,
+        "ots": null,
+        "expected_sig_value": "AUHwWbiFl1rE4vS4btLeLpatPZgMJXOblC4RmAGvaWByTRwbT3UQoZEkfYTe7dOZldVZvFsop5VtOs6K7RLaQL7fAQ=="
+    },
+    "expected": {
+        "canonical_message": "oc-stamp:v1\naddress: bc1p5e6v9v2j5wp3y6c79gaqdqltq7jdv45fswnnm7exmmp2020mqepsmcx06p\ncontent_hash: sha256:1111111111111111111111111111111111111111111111111111111111111111\ncontent_length: 42\ncontent_mime: text/plain\nsigned_at: 2026-04-24T18:30:00Z",
+        "canonical_message_bytes_len": 245,
+        "id": "0c5fc1920f53ebe64a75aebc462d55b19e461806e98ad4707c22ebe2fc60f7e4",
+        "envelope": {
+            "v": 1,
+            "kind": "stamp",
+            "id": "0c5fc1920f53ebe64a75aebc462d55b19e461806e98ad4707c22ebe2fc60f7e4",
+            "content": {
+                "hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+                "length": 42,
+                "mime": "text/plain",
+                "ref": null
+            },
+            "signer": {
+                "address": "bc1p5e6v9v2j5wp3y6c79gaqdqltq7jdv45fswnnm7exmmp2020mqepsmcx06p",
+                "alg": "bip322"
+            },
+            "signed_at": "2026-04-24T18:30:00Z",
+            "stake": null,
+            "ots": null,
+            "sig": {
+                "alg": "bip322",
+                "pubkey": "bc1p5e6v9v2j5wp3y6c79gaqdqltq7jdv45fswnnm7exmmp2020mqepsmcx06p",
+                "value": "AUHwWbiFl1rE4vS4btLeLpatPZgMJXOblC4RmAGvaWByTRwbT3UQoZEkfYTe7dOZldVZvFsop5VtOs6K7RLaQL7fAQ=="
+            }
+        }
+    },
+    "signature_check": {
+        "address_type": "p2tr",
+        "format": "bip322-simple",
+        "signed_message": "0c5fc1920f53ebe64a75aebc462d55b19e461806e98ad4707c22ebe2fc60f7e4",
+        "expected": {
+            "outcome": "ACCEPT"
+        }
+    }
+}

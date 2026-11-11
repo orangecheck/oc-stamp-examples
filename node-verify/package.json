@@ -1,0 +1,25 @@
+{
+    "name": "oc-stamp-node-verify",
+    "private": true,
+    "version": "0.1.0",
+    "description": "Verify an OC Stamp in Node with stamp-core and bip322: signature, id, content and anchor, with no service asked.",
+    "type": "module",
+    "engines": {
+        "node": ">=22"
+    },
+    "scripts": {
+        "verify": "tsx src/cli.ts",
+        "build": "tsc --noEmit",
+        "test": "tsx --test test/verify-stamp.test.ts"
+    },
+    "dependencies": {
+        "@orangecheck/bip322": "^1.1.3",
+        "@orangecheck/stamp-core": "^1.4.0",
+        "@orangecheck/stamp-ots": "^0.7.0"
+    },
+    "devDependencies": {
+        "@types/node": "^22.10.2",
+        "tsx": "^4.19.2",
+        "typescript": "^5.7.2"
+    }
+}

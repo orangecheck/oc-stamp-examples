@@ -1,0 +1,50 @@
+{
+    "description": "P2PKH, legacy BIP-137 signature over the hex id, from a disclosed burn key; MUST verify",
+    "inputs": {
+        "address": "16yH2E12NYA5pg1d4BB7wtXXnBTZ8Lws7L",
+        "content_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "content_length": 42,
+        "content_mime": "text/plain",
+        "signed_at": "2026-04-24T18:30:00Z",
+        "content_ref": null,
+        "stake": null,
+        "ots": null,
+        "expected_sig_value": "H3w6wNZ5q3J4gRSnfvbLFkoDeG6P1NQdI8LruLaOmraPRCv3NuVnjzG+gPN8glOOvJkQufSChaZ0/St84ZyWvUE="
+    },
+    "expected": {
+        "canonical_message": "oc-stamp:v1\naddress: 16yH2E12NYA5pg1d4BB7wtXXnBTZ8Lws7L\ncontent_hash: sha256:1111111111111111111111111111111111111111111111111111111111111111\ncontent_length: 42\ncontent_mime: text/plain\nsigned_at: 2026-04-24T18:30:00Z",
+        "canonical_message_bytes_len": 217,
+        "id": "2a3340d9e72f14dc4000929fac6e5ef25b22054357e8bfdeb2a311309ccb361b",
+        "envelope": {
+            "v": 1,
+            "kind": "stamp",
+            "id": "2a3340d9e72f14dc4000929fac6e5ef25b22054357e8bfdeb2a311309ccb361b",
+            "content": {
+                "hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+                "length": 42,
+                "mime": "text/plain",
+                "ref": null
+            },
+            "signer": {
+                "address": "16yH2E12NYA5pg1d4BB7wtXXnBTZ8Lws7L",
+                "alg": "bip322"
+            },
+            "signed_at": "2026-04-24T18:30:00Z",
+            "stake": null,
+            "ots": null,
+            "sig": {
+                "alg": "bip322",
+                "pubkey": "16yH2E12NYA5pg1d4BB7wtXXnBTZ8Lws7L",
+                "value": "H3w6wNZ5q3J4gRSnfvbLFkoDeG6P1NQdI8LruLaOmraPRCv3NuVnjzG+gPN8glOOvJkQufSChaZ0/St84ZyWvUE="
+            }
+        }
+    },
+    "signature_check": {
+        "address_type": "p2pkh",
+        "format": "bip137",
+        "signed_message": "2a3340d9e72f14dc4000929fac6e5ef25b22054357e8bfdeb2a311309ccb361b",
+        "expected": {
+            "outcome": "ACCEPT"
+        }
+    }
+}

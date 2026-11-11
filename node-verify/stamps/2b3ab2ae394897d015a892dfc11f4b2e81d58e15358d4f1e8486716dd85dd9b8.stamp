@@ -1,0 +1,34 @@
+{
+    "content": {
+        "hash": "sha256:5617b9c1dab2877e7acb5a30354210059d3315e33d7a99e2700d012f8e83734e",
+        "length": 337,
+        "mime": "application/vnd.oc-vote.ballot+json",
+        "ref": null
+    },
+    "id": "2b3ab2ae394897d015a892dfc11f4b2e81d58e15358d4f1e8486716dd85dd9b8",
+    "kind": "stamp",
+    "ots": {
+        "block_hash": "00000000000000000001ccf3e6f7177e019cb8bbefa1bb8be605cc0032ec17c7",
+        "block_height": 972632,
+        "calendars": [
+            "https://alice.btc.calendar.opentimestamps.org",
+            "https://bob.btc.calendar.opentimestamps.org",
+            "https://finney.calendar.eternitywall.com"
+        ],
+        "proof": "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",
+        "status": "confirmed",
+        "upgraded_at": "2026-10-22T17:30:13Z"
+    },
+    "sig": {
+        "alg": "bip322",
+        "pubkey": "bc1q24yhqzremqsd9nj49cfdt54faqnzkha62pypa2",
+        "value": "AkgwRQIhALHBpYeWepmYHaJpmYY53C9L7g4LiEfSNE76Tpn2BKaeAiBDTdQMj1l1lANvfVKcdKm75/OCwz6DRIebmKBJDExarAEhA9lZ8VRjsD0Ak/V9dmDCiSQa5vei1eAVjulpkzqRGeS4"
+    },
+    "signed_at": "2026-10-22T16:00:13.311Z",
+    "signer": {
+        "address": "bc1q24yhqzremqsd9nj49cfdt54faqnzkha62pypa2",
+        "alg": "bip322"
+    },
+    "stake": null,
+    "v": 1
+}
