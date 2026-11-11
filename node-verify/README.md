@@ -56,7 +56,7 @@ Check that the signer is the address you expect. A valid stamp says that address
 
 ## The real stamp
 
-`stamps/2b3ab2ae….stamp` is a stamp vote.ochk.io's ballot anchorer made on 2026-10-22, over a ballot cast in a throwaway test poll. The anchorer's address is `bc1q24yhqzremqsd9nj49cfdt54faqnzkha62pypa2`, a P2WPKH key vote.ochk.io holds to get ballots anchored; its signature carries no authority. It is anchored in block 972632. It was read from the public relays as Nostr kind 30083, `d` tag `oc-stamp:2b3ab2ae…`. The ballot itself is not included, so the content is not checked here.
+`stamps/2b3ab2ae….stamp` is a stamp vote.ochk.io's ballot anchorer made on 2026-10-22, over a ballot cast in a throwaway test poll. It was signed under `bc1q24yhqzremqsd9nj49cfdt54faqnzkha62pypa2`, the P2WPKH address the anchorer used then. The anchorer has used another key since; [`/.well-known/oc-vote-anchorer.json`](https://vote.ochk.io/.well-known/oc-vote-anchorer.json) names the current one. Its signature carries no authority either way. It is anchored in block 972632. It was read from the public relays as Nostr kind 30083, `d` tag `oc-stamp:2b3ab2ae…`. The ballot itself is not included, so the content is not checked here.
 
 ## Test
 
