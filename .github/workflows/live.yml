@@ -1,0 +1,108 @@
+name: Live
+
+# Weekly. Each template installed with its lockfile removed, so it gets the
+# latest published packages its ranges allow, on current Node: type-checked and
+# tested.
+# Then one real stamp checked three ways: stamp-cli against mempool.space's
+# block header, node-verify against the header committed beside it, and that
+# committed header against the chain. A copy with one signature byte changed
+# must fail both verifiers. No secrets. GitHub turns a schedule off after 60
+# days without a commit to the repo; turn it back on under Actions, Live,
+# Enable workflow.
+
+on:
+    schedule:
+        - cron: '17 7 * * 1'
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: live
+    cancel-in-progress: false
+
+jobs:
+    template:
+        name: ${{ matrix.template }} on latest
+        if: github.repository == 'orangecheck/oc-stamp-examples'
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        strategy:
+            fail-fast: false
+            matrix:
+                template:
+                    - node-verify
+                    - release-tag
+        defaults:
+            run:
+                working-directory: ${{ matrix.template }}
+        steps:
+            - uses: actions/checkout@v5
+            - uses: actions/setup-node@v5
+              with:
+                  node-version: '24'
+            # yarn list reads yarn.lock, so the install writes a fresh one rather than skip it.
+            - run: rm yarn.lock && yarn install --non-interactive
+            - name: The orangecheck versions this run resolved
+              run: yarn -s list --pattern '@orangecheck' --depth=0
+            - run: yarn build
+            - run: yarn test
+
+    real-stamp:
+        name: The real stamp, checked three ways
+        if: github.repository == 'orangecheck/oc-stamp-examples'
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        env:
+            STAMP: node-verify/stamps/2b3ab2ae394897d015a892dfc11f4b2e81d58e15358d4f1e8486716dd85dd9b8.stamp
+            HEIGHT: '972632'
+        steps:
+            - uses: actions/checkout@v5
+            - uses: actions/setup-node@v5
+              with:
+                  node-version: '24'
+            - name: A copy with one signature byte changed
+              run: |
+                  node -e '
+                      const fs = require("fs");
+                      const env = JSON.parse(fs.readFileSync(process.env.STAMP, "utf8"));
+                      const sig = Buffer.from(env.sig.value, "base64");
+                      sig[10] ^= 1;
+                      env.sig.value = sig.toString("base64");
+                      fs.writeFileSync(process.env.RUNNER_TEMP + "/tampered.stamp", JSON.stringify(env));
+                  '
+            - name: stamp-cli, against mempool.space's block header
+              run: |
+                  npx -y @orangecheck/stamp-cli@latest --version
+                  npx -y @orangecheck/stamp-cli@latest verify "$STAMP" --require-anchor --json > "$RUNNER_TEMP/cli.json"
+                  cat "$RUNNER_TEMP/cli.json"
+                  jq -e '.ok and .signature_checked and .anchor_state == "anchored"' "$RUNNER_TEMP/cli.json" > /dev/null
+                  set +e
+                  npx -y @orangecheck/stamp-cli@latest verify "$RUNNER_TEMP/tampered.stamp" --json > "$RUNNER_TEMP/cli-tampered.json"
+                  code=$?
+                  set -e
+                  cat "$RUNNER_TEMP/cli-tampered.json"
+                  test "$code" = 2
+                  jq -e '.code == "E_BAD_SIG"' "$RUNNER_TEMP/cli-tampered.json" > /dev/null
+            - name: node-verify, against the committed header
+              working-directory: node-verify
+              run: |
+                  rm yarn.lock && yarn install --non-interactive
+                  yarn -s list --pattern '@orangecheck' --depth=0 >&2
+                  yarn -s verify "../$STAMP" --headers headers --require-anchor > "$RUNNER_TEMP/offline.json"
+                  cat "$RUNNER_TEMP/offline.json"
+                  jq -e --argjson h "$HEIGHT" '.ok and .anchor.status == "confirmed" and .anchor.blockHeight == $h' "$RUNNER_TEMP/offline.json" > /dev/null
+                  set +e
+                  yarn -s verify "$RUNNER_TEMP/tampered.stamp" --headers headers > "$RUNNER_TEMP/offline-tampered.json"
+                  code=$?
+                  set -e
+                  cat "$RUNNER_TEMP/offline-tampered.json"
+                  test "$code" = 2
+                  jq -e '.code == "E_BAD_SIG"' "$RUNNER_TEMP/offline-tampered.json" > /dev/null
+            - name: The committed header is the chain's block at that height
+              run: |
+                  hash=$(curl -sSf --retry 3 "https://mempool.space/api/block-height/$HEIGHT")
+                  curl -sSf --retry 3 "https://mempool.space/api/block/$hash/header" > "$RUNNER_TEMP/header.hex"
+                  test "$hash" = "$(jq -r .ots.block_hash "$STAMP")"
+                  diff <(tr -d '\n' < "node-verify/headers/$HEIGHT.hex") <(tr -d '\n' < "$RUNNER_TEMP/header.hex")
