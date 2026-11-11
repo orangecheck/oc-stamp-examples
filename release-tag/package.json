@@ -1,0 +1,23 @@
+{
+    "name": "oc-stamp-release-tag",
+    "private": true,
+    "version": "0.1.0",
+    "description": "Stamp a release tag with your Bitcoin address using git-stamp, and check it with git-stamp verify and stamp verify.",
+    "type": "module",
+    "engines": {
+        "node": ">=22"
+    },
+    "scripts": {
+        "build": "tsc --noEmit",
+        "test": "tsx --test test/release-tag.test.ts"
+    },
+    "dependencies": {
+        "@orangecheck/stamp-cli": "^0.4.0"
+    },
+    "devDependencies": {
+        "@orangecheck/bip322": "^1.1.3",
+        "@types/node": "^22.10.2",
+        "tsx": "^4.19.2",
+        "typescript": "^5.7.2"
+    }
+}
